@@ -14,6 +14,7 @@ struct MissionView: View {
     }
     let mission: Mission
     let astronauts: [CrewMember]
+    let missionsAll: [Mission] = Bundle.main.decode("missions.json")
     init(mission: Mission, astronauts: [Astronaut]) {
         self.mission = mission
 
@@ -38,12 +39,13 @@ struct MissionView: View {
                         .scaledToFit()
                         .frame(maxWidth: geometry.size.width * 0.7)
                         .padding(.top)
+                    Text(self.mission.formattedLaunchDate)
 
                     Text(self.mission.description)
                         .padding()
                     
                     ForEach(self.astronauts, id: \.role) { crewMember in
-                        NavigationLink(destination: AstronautView(astronaut: crewMember.astronaut)) {
+                        NavigationLink(destination: AstronautView(crewMember.astronaut)) {
 
                         HStack {
                             Image(crewMember.astronaut.id)
